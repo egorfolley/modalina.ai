@@ -1,71 +1,707 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modalina AI</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 60px 40px;
-            max-width: 800px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-        
-        p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 30px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Modalina AI ships production AI workflows in 21 days. Fixed scope, fixed price, deployed in your environment." />
+  <title>Modalina AI | Production AI Workflow in 21 Days</title>
+
+  <style>
+    :root{
+      --bg:#070A0E;
+      --panel:#0B111A;
+      --text:#EAF2FF;
+      --muted:#9DB0C7;
+      --cyan:#2AF5FF;
+      --cyan2:#00C9D6;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --radius: 18px;
+      --max: 1080px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 15% 15%, rgba(42,245,255,.12), transparent 55%),
+        radial-gradient(900px 520px at 85% 25%, rgba(0,201,214,.10), transparent 55%),
+        radial-gradient(900px 520px at 40% 95%, rgba(42,245,255,.06), transparent 55%),
+        var(--bg);
+      line-height:1.7;
+      letter-spacing:.2px;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:40px 24px 80px; }
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:16px 20px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(11,17,26,.55);
+      backdrop-filter: blur(10px);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      font-size:13px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(42,245,255,.65);
+    }
+    .nav{
+      display:flex;
+      gap:18px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .nav a{ padding:10px 12px; border-radius:10px; }
+    .nav a:hover{ background: rgba(255,255,255,.05); color:var(--text); }
+
+    /* Hero */
+    .hero{
+      margin-top:32px;
+      padding:48px 28px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(11,17,26,.80), rgba(11,17,26,.45));
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(420px 240px at 20% 20%, rgba(42,245,255,.18), transparent 60%),
+        radial-gradient(420px 240px at 85% 35%, rgba(0,201,214,.14), transparent 60%);
+      pointer-events:none;
+      filter: blur(0px);
+    }
+    .hero > *{ position:relative; }
+
+    .kicker{
+      display:inline-flex;
+      gap:12px;
+      align-items:center;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(42,245,255,.35);
+      color:rgba(234,242,255,.92);
+      background: rgba(42,245,255,.06);
+      font-size:13px;
+      margin-bottom:4px;
+    }
+    .kicker span{
+      color:var(--cyan);
+      font-weight:700;
+    }
+
+    h1{
+      margin:24px 0 16px;
+      font-size: clamp(36px, 4.4vw, 56px);
+      line-height:1.1;
+      letter-spacing:-.8px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(17px, 1.7vw, 19px);
+      max-width: 70ch;
+      line-height:1.65;
+    }
+
+    .ctaRow{
+      margin-top:28px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 18px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:600;
+      font-size:15px;
+      cursor:pointer;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); }
+    .btn:active{ transform: translateY(1px); }
+
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(42,245,255,.18), rgba(0,201,214,.12));
+      border-color: rgba(42,245,255,.45);
+      box-shadow: 0 0 0 4px rgba(42,245,255,.06);
+    }
+    .btn.primary:hover{
+      border-color: rgba(42,245,255,.70);
+      box-shadow: 0 0 0 5px rgba(42,245,255,.07);
+    }
+
+    .urgency{
+      margin-top:20px;
+      padding:14px 18px;
+      border-radius:12px;
+      border:1px solid rgba(42,245,255,.25);
+      background: rgba(42,245,255,.04);
+      color: rgba(234,242,255,.85);
+      font-size:14px;
+      display:inline-block;
+      line-height:1.6;
+    }
+    .urgency strong{ color:var(--cyan); }
+
+    .metaRow{
+      margin-top:24px;
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      color: rgba(234,242,255,.75);
+      font-size:13px;
+    }
+    .metaPill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    .metaPill strong{ color:var(--cyan); font-weight:700; }
+
+    /* Press mentions */
+    .press{
+      margin-top:24px;
+      padding:12px 0;
+      color: rgba(234,242,255,.60);
+      font-size:13px;
+      letter-spacing:.3px;
+      line-height:1.6;
+    }
+    .press a{
+      color: rgba(234,242,255,.75);
+      text-decoration:underline;
+      text-decoration-color: rgba(234,242,255,.25);
+    }
+    .press a:hover{
+      color:var(--cyan);
+      text-decoration-color: var(--cyan);
+    }
+
+    /* Proof section */
+    .proof{
+      margin-top:32px;
+      padding:28px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background: rgba(11,17,26,.55);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .proof h2{
+      margin:0 0 20px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .proofGrid{
+      display:grid;
+      gap:16px;
+    }
+    .proofItem{
+      padding:18px 20px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.16);
+    }
+    .proofItem strong{
+      color:var(--cyan);
+      font-weight:700;
+      font-size:16px;
+      display:block;
+      margin-bottom:8px;
+    }
+    .proofItem p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.65;
+    }
+    .proofItem cite{
+      display:block;
+      margin-top:10px;
+      font-style:normal;
+      color: rgba(234,242,255,.60);
+      font-size:13px;
+    }
+
+    /* Founder section */
+    .founder{
+      margin-top:32px;
+      padding:28px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background: rgba(11,17,26,.55);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      display:flex;
+      gap:24px;
+      align-items:flex-start;
+    }
+    .founderImg{
+      width:90px;
+      height:90px;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(42,245,255,.15), rgba(0,201,214,.10));
+      border:2px solid rgba(42,245,255,.35);
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:32px;
+      font-weight:700;
+      color:var(--cyan);
+    }
+    .founderText h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+    .founderText p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+    }
+    .founderText ul{
+      margin:0;
+      padding:0 0 0 20px;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .founderText li{
+      margin-top:8px;
+      line-height:1.6;
+    }
+
+    /* Sections */
+    .grid{
+      margin-top:32px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:20px;
+    }
+    .card{
+      grid-column: span 6;
+      padding:28px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: rgba(11,17,26,.55);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .card h3{
+      margin:0 0 14px;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+    .card p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:14px;
+    }
+    .li{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:16px 18px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.16);
+    }
+    .tick{
+      width:20px; height:20px; border-radius:6px;
+      border:1px solid rgba(42,245,255,.55);
+      background: rgba(42,245,255,.10);
+      box-shadow: 0 0 18px rgba(42,245,255,.20);
+      flex:0 0 auto;
+      margin-top:2px;
+    }
+    .cross{
+      width:20px; height:20px; border-radius:6px;
+      border:1px solid rgba(255,100,100,.55);
+      background: rgba(255,100,100,.10);
+      flex:0 0 auto;
+      margin-top:2px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:rgba(255,100,100,.85);
+      font-size:13px;
+      font-weight:700;
+    }
+    .li strong{ color: rgba(234,242,255,.92); font-weight:650; display:block; margin-bottom:4px; }
+    .li div{ color:var(--muted); font-size:15px; line-height:1.65; }
+
+    /* Process section */
+    .wide{ grid-column: span 12; }
+    .steps{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+    }
+    .step{
+      padding:20px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+    }
+    .stepNum{
+      font-size:12px;
+      color: rgba(234,242,255,.70);
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .stepTitle{
+      margin:0 0 10px;
+      font-size:16px;
+    }
+    .stepBody{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.65;
+    }
+
+    /* Contact */
+    .contact{
+      margin-top:32px;
+      padding:28px;
+      border-radius:var(--radius);
+      border:1px solid rgba(42,245,255,.25);
+      background: linear-gradient(180deg, rgba(42,245,255,.06), rgba(11,17,26,.40));
+    }
+    .contact h2{
+      margin:0 0 14px;
+      font-size:20px;
+    }
+    .contact p{ 
+      margin:0 0 16px; 
+      color:var(--muted); 
+      font-size:15px;
+      line-height:1.7;
+    }
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:stretch;
+      margin-top:20px;
+    }
+    .input{
+      width:100%;
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      font-size:15px;
+      outline:none;
+      line-height:1.5;
+    }
+    .input:focus{
+      border-color: rgba(42,245,255,.55);
+      box-shadow: 0 0 0 4px rgba(42,245,255,.07);
+    }
+
+    .guarantee{
+      margin-top:18px;
+      padding:14px 16px;
+      border-radius:12px;
+      background: rgba(42,245,255,.06);
+      border:1px solid rgba(42,245,255,.20);
+      font-size:14px;
+      color: rgba(234,242,255,.80);
+      line-height:1.6;
+    }
+    .guarantee strong{ color:var(--cyan); }
+
+    .footer{
+      margin-top:40px;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      color: rgba(234,242,255,.55);
+      font-size:13px;
+      padding: 0 8px;
+    }
+    .footer a{ color: rgba(234,242,255,.75); }
+    .footer a:hover{ color: var(--text); }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .wrap{ padding:28px 18px 60px; }
+      .hero{ padding:36px 20px; }
+      .card{ grid-column: span 12; }
+      .steps{ grid-template-columns: 1fr; }
+      .contactGrid{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+      .founder{ flex-direction:column; }
+      .proof{ padding:24px 20px; }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Modalina AI</h1>
-        <p>Coming Soon</p>
-        <p>Something amazing is being built here.</p>
-        <a href="mailto:hello@modalina.ai" class="cta-button">Get in Touch</a>
-    </div>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="dot" aria-hidden="true"></div>
+        <div>Modalina AI</div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#proof">Proof</a>
+        <a href="#what">What we build</a>
+        <a href="#how">How it works</a>
+        <a href="#contact">Get started</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <div class="kicker">
+        <span>✓ Production AI in weeks</span>
+        <div>While others sell pilots that die, we ship systems your team uses Day 1</div>
+      </div>
+
+      <h1>One production AI workflow in 21 days.</h1>
+      <p class="sub">
+        Fixed scope. Fixed price. Deployed in your environment.<br/>
+        We build AI systems that integrate with your existing tools, respect permissions, and have clear adoption paths.
+      </p>
+
+      <div class="ctaRow">
+        <a class="btn primary" href="#contact">Get a 21-day AI plan</a>
+        <a class="btn" href="mailto:founder@modalina.ai?subject=21-day%20AI%20workflow%20inquiry">Email us</a>
+      </div>
+
+      <div class="urgency">
+        <strong>Limited availability:</strong> We take 2 new clients per month. Next opening: <strong>March 2026</strong>
+      </div>
+
+      <div class="metaRow" aria-label="Credibility highlights">
+        <div class="metaPill"><strong>Typical projects:</strong> $15k–$60k fixed price</div>
+        <div class="metaPill"><strong>Best fit:</strong> 50-500 person teams with manual ops</div>
+        <div class="metaPill"><strong>Timeline:</strong> 2-6 week delivery</div>
+      </div>
+
+      <div class="press">
+        As seen in: <a href="https://www.laweekly.com" target="_blank" rel="noreferrer">LA Weekly</a> | <a href="https://www.builtworlds.com" target="_blank" rel="noreferrer">BuiltWorlds AI/ML Conference</a> | <a href="https://www.ibtimes.com" target="_blank" rel="noreferrer">International Business Times</a>
+      </div>
+    </main>
+
+    <section id="proof" class="proof">
+      <h2>Recent wins</h2>
+      <div class="proofGrid">
+        <div class="proofItem">
+          <strong>Support copilot: cut resolution time 32% in 4 weeks</strong>
+          <p>Deployed AI assistant that searches internal docs and suggests responses. Integrated with Zendesk and Okta auth.</p>
+          <cite>— VP Operations, Series B SaaS Company</cite>
+        </div>
+        <div class="proofItem">
+          <strong>Sales research workflow: saved 10 hours per rep per week</strong>
+          <p>Automated prospect research by pulling data from CRM, news, and LinkedIn. Generated briefing docs automatically.</p>
+          <cite>— Head of Sales, Enterprise Software</cite>
+        </div>
+        <div class="proofItem">
+          <strong>Contract review assistant: reduced cycle from 5 days to 1 day</strong>
+          <p>Built AI system to extract key terms, flag risks, and suggest edits across 10k+ internal contracts with role-based access.</p>
+          <cite>— Head of Legal Ops, Fintech</cite>
+        </div>
+      </div>
+    </section>
+
+    <section id="what" class="grid" aria-label="What we build">
+      <div class="card">
+        <h3>What we build for you</h3>
+        <p>
+          Real AI systems that work with your existing stack. No vendor lock-in. You own all code and documentation.
+        </p>
+
+        <ul class="list">
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>Internal copilots and assistants</strong>Tools that help your team work faster—integrated with Slack, Teams, your internal systems.</div>
+          </li>
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>Ask questions across your internal docs</strong>Search and get answers from Confluence, Notion, Google Drive, SharePoint—with proper access control.</div>
+          </li>
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>Automations that complete tasks end-to-end</strong>Data processing, customer support routing, contract analysis, sales research—deployed and monitored.</div>
+          </li>
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>Production deployment and handoff</strong>Monitoring dashboards, cost controls, quality gates, team training, complete documentation.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Why work with us</h3>
+        <p>
+          Consultancies take months and charge millions. Platforms sell tools but no implementation. 
+          We ship working solutions in weeks with clear outcomes.
+        </p>
+
+        <ul class="list">
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>You get a working system</strong>Not a roadmap. Not strategy slides. A deployed AI workflow your team can use immediately.</div>
+          </li>
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>Enterprise-grade from day one</strong>Security, permissions, evaluation, and monitoring built in—not retrofitted later.</div>
+          </li>
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>Fast, focused delivery</strong>We use AI to build AI. That means we move faster and keep costs down.</div>
+          </li>
+          <li class="li">
+            <div class="tick" aria-hidden="true"></div>
+            <div><strong>You own everything</strong>Full code handoff, runbooks, deployment guides. No ongoing license fees or vendor lock-in.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card wide">
+        <h3>Not a fit if...</h3>
+        <p>
+          We're selective about projects to maintain quality. We're probably not the right choice if:
+        </p>
+
+        <ul class="list">
+          <li class="li">
+            <div class="cross">✕</div>
+            <div>You want a slide deck, strategy consulting, or roadmap only</div>
+          </li>
+          <li class="li">
+            <div class="cross">✕</div>
+            <div>You cannot provide access to a technical system owner or stakeholder</div>
+          </li>
+          <li class="li">
+            <div class="cross">✕</div>
+            <div>You want consumer chatbot experiments or open-ended AI research</div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="how" class="card wide">
+        <h3>How we work together</h3>
+        <p>
+          A simple, proven process. You get clarity fast, then working software you can deploy.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="stepNum">Step 1 · Discovery (30 min)</div>
+            <p class="stepTitle"><strong>Free working session</strong></p>
+            <p class="stepBody">We identify one high-value AI use case, agree on success metrics, and scope the work. You leave with: 1 use case shortlist, success metric, fixed scope quote.</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">Step 2 · Planning (Week 1)</div>
+            <p class="stepTitle"><strong>Architecture & security design</strong></p>
+            <p class="stepBody">We map out technical approach: integrations, data flows, access control, evaluation framework, and delivery timeline (typically 2-6 weeks).</p>
+          </div>
+          <div class="step">
+            <div class="stepNum">Step 3 · Delivery (Weeks 2-6)</div>
+            <p class="stepTitle"><strong>Build, test, deploy, handoff</strong></p>
+            <p class="stepBody">We build the system, set up monitoring and quality gates, deploy to your environment, train your team, and hand over complete documentation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-label="Contact">
+      <h2>Ready to ship your first AI workflow in 21 days?</h2>
+      <p>
+        <strong>Best fit:</strong> Operations-heavy teams in services, marketplaces, logistics, construction, or support with 50-500 employees.
+      </p>
+      <p>
+        Tell us about your AI challenge—your use case, tech stack, and timeline. 
+        We'll let you know if we can help and send you a fixed-scope proposal.
+      </p>
+
+      <div class="contactGrid">
+        <input class="input" id="msg" type="text" placeholder="Example: Support copilot to search Confluence docs, Okta auth required, need deployed in 3 weeks" />
+        <button class="btn primary" type="button" onclick="sendEmail()">Get a 21-day plan</button>
+      </div>
+
+      <div class="guarantee">
+        <strong>Risk reversal:</strong> If we can't ship a working pilot in 14 days, you don't pay for week two. Fixed scope, weekly demos.
+      </div>
+
+      <p style="margin-top:16px; font-size:14px; color: rgba(234,242,255,.60);">
+        Or reach out directly at <a href="mailto:founder@modalina.ai?subject=21-day%20AI%20workflow%20inquiry" style="color: var(--cyan);">founder@modalina.ai</a>
+      </p>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> Modalina AI</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function sendEmail(){
+      const text = (document.getElementById("msg").value || "").trim();
+      const subject = encodeURIComponent("21-day AI workflow inquiry");
+      const body = encodeURIComponent(
+        "Hello Modalina AI team,\n\n" +
+        (text ? ("Here's what we're looking to build:\n" + text + "\n\n") : "") +
+        "Company name: \n" +
+        "Contact person & role: \n" +
+        "Number of employees: \n" +
+        "Current tech stack (if relevant): \n" +
+        "Desired timeline: \n" +
+        "Budget range: \n\n" +
+        "Best regards,\n"
+      );
+
+      const to = "founder@modalina.ai";
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    }
+  </script>
 </body>
 </html>
